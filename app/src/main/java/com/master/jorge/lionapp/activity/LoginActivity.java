@@ -43,6 +43,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mLoginFormView;
 
     final Gson gson = new Gson();
+
     SharedPreferences settings;
 
     @Override
@@ -51,6 +52,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+
+        settings = getSharedPreferences("HEADER", 0);
+        if (!settings.getString("uid", "").isEmpty()){
+            Intent intent = new Intent(LoginActivity.this, GoodsActivity.class);
+            startActivity(intent);
+        }
+
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -133,7 +141,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 Log.d("Response", (new String(responseBody)));
                 Data data = gson.fromJson(new String(responseBody), Data.class);
                 Intent intent = new Intent(LoginActivity.this, GoodsActivity.class);
-                settings = getSharedPreferences("HEADER", 0);
                 SharedPreferences.Editor editor = settings.edit();
 
                 for(Header header : headers){

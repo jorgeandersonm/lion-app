@@ -80,12 +80,12 @@ public class GoodsActivity extends AppCompatActivity {
                 goods = gson.fromJson(new String(responseBody), Good[].class);
                 adapter = new ArrayAdapter<Good>(GoodsActivity.this, android.R.layout.simple_list_item_1, goods);
                 goodsLV.setAdapter(adapter);
-								SharedPreferences.Editor editor = settings.edit();
-								for(Header header : headers){
+                SharedPreferences.Editor editor = settings.edit();
+                for(Header header : headers){
                     if (header.getName().equals("Access-Token"))
                         editor.putString("access-token", header.getValue());
                 }
-								editor.commit();
+                editor.commit();
             }
 
             @Override
@@ -125,10 +125,7 @@ public class GoodsActivity extends AppCompatActivity {
     }
 
     public void logout() {
-        settings.edit().remove("client");
-        settings.edit().remove("access-token");
-        settings.edit().remove("uid");
-        settings.edit().commit();
+        settings.edit().putString("uid","").commit();
 
         Toast.makeText(GoodsActivity.this, "Logout Success", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(GoodsActivity.this, LoginActivity.class);
