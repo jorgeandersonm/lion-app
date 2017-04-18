@@ -63,6 +63,12 @@ public class GoodDetailsActivity extends AppCompatActivity {
                 Log.d("Result","SUCCESS");
                 Log.d("Result",String.valueOf(new String(responseBody)));
                 Toast.makeText(GoodDetailsActivity.this, "Removed", Toast.LENGTH_SHORT).show();
+								SharedPreferences.Editor editor = settings.edit();
+								for(Header header : headers){
+                    if (header.getName().equals("Access-Token"))
+                        editor.putString("access-token", header.getValue());
+                }
+								editor.commit();
                 Intent intent = new Intent(GoodDetailsActivity.this, GoodsActivity.class);
                 startActivity(intent);
             }

@@ -80,6 +80,12 @@ public class GoodsActivity extends AppCompatActivity {
                 goods = gson.fromJson(new String(responseBody), Good[].class);
                 adapter = new ArrayAdapter<Good>(GoodsActivity.this, android.R.layout.simple_list_item_1, goods);
                 goodsLV.setAdapter(adapter);
+								SharedPreferences.Editor editor = settings.edit();
+								for(Header header : headers){
+                    if (header.getName().equals("Access-Token"))
+                        editor.putString("access-token", header.getValue());
+                }
+								editor.commit();
             }
 
             @Override

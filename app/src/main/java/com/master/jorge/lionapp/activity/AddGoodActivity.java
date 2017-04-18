@@ -61,6 +61,12 @@ public class AddGoodActivity extends AppCompatActivity {
                 Log.d("Result","SUCCESS");
                 Log.d("Result",String.valueOf(new String(responseBody)));
                 Toast.makeText(AddGoodActivity.this, "Good Added", Toast.LENGTH_SHORT).show();
+								SharedPreferences.Editor editor = settings.edit();
+								for(Header header : headers){
+                    if (header.getName().equals("Access-Token"))
+                        editor.putString("access-token", header.getValue());
+                }
+								editor.commit();
                 Intent intent = new Intent(AddGoodActivity.this, GoodsActivity.class);
                 startActivity(intent);
             }
