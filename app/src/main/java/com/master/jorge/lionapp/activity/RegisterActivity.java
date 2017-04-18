@@ -1,4 +1,4 @@
-package com.master.jorge.lionapp;
+package com.master.jorge.lionapp.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.master.jorge.lionapp.activity.LoginActivity;
+import com.master.jorge.lionapp.R;
 
 import cz.msebera.android.httpclient.Header;
 

@@ -3,8 +3,7 @@ package com.master.jorge.lionapp.activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.app.Activity;
-import android.os.StrictMode;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -14,18 +13,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.loopj.android.http.SyncHttpClient;
-import com.master.jorge.lionapp.GoodDetailsActivity;
 import com.master.jorge.lionapp.R;
-import com.master.jorge.lionapp.RegisterActivity;
-import com.master.jorge.lionapp.model.Data;
 import com.master.jorge.lionapp.model.Good;
 
 import cz.msebera.android.httpclient.Header;
@@ -36,6 +30,8 @@ public class GoodsActivity extends AppCompatActivity {
     Good goods[];
     ListView goodsLV;
     ArrayAdapter<Good> adapter;
+    FloatingActionButton buttonAdd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +51,15 @@ public class GoodsActivity extends AppCompatActivity {
                 intent.putExtra("value", String.valueOf(goods[i].getValue()));
                 intent.putExtra("id", String.valueOf(goods[i].getId()));
                 startActivity(intent);
+            }
+        });
+
+        buttonAdd = (FloatingActionButton) findViewById(R.id.button_add);
+
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addGood();
             }
         });
     }
@@ -113,7 +118,7 @@ public class GoodsActivity extends AppCompatActivity {
         }
     }
 
-    private void logout() {
+    public void logout() {
         settings.edit().remove("client");
         settings.edit().remove("access-token");
         settings.edit().remove("uid");
@@ -121,6 +126,11 @@ public class GoodsActivity extends AppCompatActivity {
 
         Toast.makeText(GoodsActivity.this, "Logout Success", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(GoodsActivity.this, LoginActivity.class);
+        startActivity(intent);
+    }
+
+    public void addGood(){
+        Intent intent = new Intent(GoodsActivity.this, AddGoodActivity.class);
         startActivity(intent);
     }
 }

@@ -27,11 +27,12 @@
             android:name=".activity.GoodsActivity"
             android:label="@string/title_activity_goods" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".activity.RegisterActivity"
             android:label="@string/title_activity_register" />
         <activity
-            android:name=".GoodDetailsActivity"
-            android:label="@string/title_activity_good_details"></activity>
+            android:name=".activity.GoodDetailsActivity"
+            android:label="@string/title_activity_good_details" />
+        <activity android:name=".activity.AddGoodActivity"></activity>
     </application>
 
 </manifest>

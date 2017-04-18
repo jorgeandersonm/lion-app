@@ -1,29 +1,24 @@
-package com.master.jorge.lionapp;
+package com.master.jorge.lionapp.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.app.Activity;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.master.jorge.lionapp.activity.GoodsActivity;
-import com.master.jorge.lionapp.activity.LoginActivity;
-import com.master.jorge.lionapp.model.Good;
+import com.master.jorge.lionapp.R;
 
 import cz.msebera.android.httpclient.Header;
 
 public class GoodDetailsActivity extends AppCompatActivity {
-    private FloatingActionButton buttonDelete;
+    FloatingActionButton buttonDelete;
     SharedPreferences settings;
     Intent intent;
 
