@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,6 +22,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.SyncHttpClient;
+import com.master.jorge.lionapp.GoodDetailsActivity;
 import com.master.jorge.lionapp.R;
 import com.master.jorge.lionapp.RegisterActivity;
 import com.master.jorge.lionapp.model.Data;
@@ -31,12 +34,29 @@ public class GoodsActivity extends AppCompatActivity {
     SharedPreferences settings;
     final Gson gson = new Gson();
     Good goods[];
+    ListView goodsLV;
+    ArrayAdapter<Good> adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods);
-
+        goodsLV = (ListView) findViewById(R.id.goodsLV);
         setGoodsList();
+
+        goodsLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.i("HelloListView", "You clicked Item: " + i + " at position:" + l);
+                Log.i("Array","Good: " + goods[i].getName());
+
+                Intent intent = new Intent(GoodsActivity.this, GoodDetailsActivity.class);
+                intent.putExtra("name", goods[i].getName());
+                intent.putExtra("category", goods[i].getCategory());
+                intent.putExtra("value", String.valueOf(goods[i].getValue()));
+                intent.putExtra("id", String.valueOf(goods[i].getId()));
+                startActivity(intent);
+            }
+        });
     }
 
     public void setGoodsList(){
@@ -52,9 +72,8 @@ public class GoodsActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 Log.d("Result","SUCCESS");
                 Log.d("Result",String.valueOf(new String(responseBody)));
-                ListView goodsLV = (ListView) findViewById(R.id.goodsLV);
                 goods = gson.fromJson(new String(responseBody), Good[].class);
-                ArrayAdapter<Good> adapter = new ArrayAdapter<Good>(GoodsActivity.this, android.R.layout.simple_list_item_1, goods);
+                adapter = new ArrayAdapter<Good>(GoodsActivity.this, android.R.layout.simple_list_item_1, goods);
                 goodsLV.setAdapter(adapter);
             }
 

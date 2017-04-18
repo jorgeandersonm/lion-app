@@ -46,4 +46,5 @@
         <item>male</item>
         <item>female</item>
     </string-array>
+    <string name="title_activity_good_details">Lion App - View Good</string>
 </resources>
